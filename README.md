@@ -1,45 +1,94 @@
-# Kulswamini Grinding Works 🌟
+# Kulswamini Grinding Works Website
 
-Welcome to the official website for **Kulswamini Grinding Works**, a trusted partner in premium cutting tools and tooling solutions.
+This project includes a fully functional website for Kulswamini Grinding Works with user authentication, contact form submissions, and an admin panel.
 
-## 🔧 About the Project
+## Features
 
-This website is a front-end project showcasing the products, mission, and industry scope of Kulswamini Grinding Works. It's designed to be simple, professional, and easy to navigate, with animations that enhance the scrolling experience for users.
+- Home page with company information
+- Products page displaying company offerings
+- About page with company history
+- Contact page with form submissions
+- User authentication (signup and login)
+- Admin panel for managing contact form submissions
+- Responsive design for all screen sizes
 
-## 🖥️ Live Preview
+## Setup Instructions
 
-> Currently hosted locally. Will update with a GitHub Pages link once deployed.
+### Prerequisites
 
-## ✨ Features
+- Node.js (v14+ recommended)
+- npm or yarn
+- MongoDB Atlas account (required for database storage)
 
-- 🔹 Clean, responsive design
-- 🔹 Smooth scrolling and section animations
-- 🔹 Products section (Carbide & Highspeed tools)
-- 🔹 Industry focus display (Aerospace, Medical, Power, Automotive, etc.)
-- 🔹 Mission statement and company info
-- 🔹 Easy navigation (Home, Products, About, Contact, Login)
+### Installation
 
-## 📁 Pages Included
+1. Clone the repository
+2. Install the dependencies:
+   ```
+   npm install
+   ```
 
-- `FrontPage.html` — Landing page with hero section and product overview
-- `about.html` — Company mission and industry services
-- `contact.html` *(optional placeholder if you have it)*
-- `products.html` *(if separate, or just part of FrontPage.html)*
+### MongoDB Atlas Setup
 
-## 🛠️ Tech Stack
+For data storage, this application uses MongoDB Atlas.
 
-- **HTML5**
-- **CSS3**
-- **JavaScript**
-- **Font Awesome** (for icons)
-- **Scroll-based animations** (e.g. AOS, custom CSS, or JS)
-- **Local hosting (localhost:3000)**
+1. Sign up for a free MongoDB Atlas account at https://www.mongodb.com/cloud/atlas/register
+2. Create a new cluster (the free tier is sufficient)
+3. Once your cluster is created, click on "Connect"
+4. Choose "Connect your application"
+5. Copy the connection string that looks like:
+   ```
+   mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/<database-name>?retryWrites=true&w=majority
+   ```
+6. Create a `.env` file in the root directory with:
+   ```
+   MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/<database-name>?retryWrites=true&w=majority
+   JWT_SECRET=your-secret-key
+   ```
+7. Replace `<username>`, `<password>`, and `<database-name>` with your MongoDB Atlas username, password, and desired database name.
 
-## 🚀 Getting Started
+### Running the Application
 
-To run this locally:
+1. Start the backend server:
+   ```
+   node server.js
+   ```
+   
+2. The server will be available at http://localhost:3000
+3. Open the HTML files directly in your browser to view the frontend
 
-```bash
-git clone https://github.com/your-username/kulswamini-grinding-works.git
-cd kulswamini-grinding-works
-open FrontPage.html
+### Default Admin User
+
+A default admin user is automatically created:
+- Email: admin@example.com
+- Password: admin123
+
+## File Structure
+
+- `FrontPage.html` - Main landing page
+- `products.html` - Products showcase
+- `about.html` - About the company
+- `contact.html` - Contact form
+- `login.html` - User login
+- `signup.html` - User registration
+- `admin.html` - Admin panel (protected)
+- `server.js` - Backend API server
+- `models/` - MongoDB models
+  - `User.js` - User model
+  - `Contact.js` - Contact form submission model
+- `styles.css` - Main stylesheet
+
+## API Endpoints
+
+- `POST /api/auth/signup` - Register a new user
+- `POST /api/auth/login` - Login a user
+- `POST /api/contact` - Submit a contact form
+- `GET /api/contact` - Get all contact submissions (admin only)
+- `PUT /api/contact/:id` - Update contact status (admin only)
+
+## Technology Stack
+
+- Frontend: HTML, CSS, JavaScript
+- Backend: Node.js, Express.js
+- Database: MongoDB Atlas
+- Authentication: JWT
