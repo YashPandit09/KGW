@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us | Kulswamini Grinding Works</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+</head>
+
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo-container">
+                <img src="images/K.png" alt="Kulswamini Grinding Works Logo" class="logo-img" />
+                <a href="FrontPage.html" class="logo">Kulswamini Grinding Works</a>
+            </div>
+            <nav class="nav-links">
+                <a href="FrontPage.html">Home</a>
+                <a href="products.html">Products</a>
+                <a href="about.html">About</a>
+                <a href="contact.html" class="active">Contact</a>
+                <a href="login.html" class="login-link">Login</a>
+            </nav>
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <h1>Contact Us</h1>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contactSection" class="contact-container">
+        <div class="contact-heading">
+            <h2>Get in Touch</h2>
+            <p>
+                We'd love to hear from you. Send us a message and we'll respond as
+                soon as possible.
+            </p>
+        </div>
+
+        <div class="contact-info">
+            <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                    <h3>Address</h3>
+                    <p>GROUND FLOOR PLOT NO.268, C/O KULSWAMINI GRINDING WORKS</p>
+                    <p>NEAR THAKUR ENGG WORK, POKHRAN ROAD NO.01</p>
+                    <p>THANE - 400606</p>
+                </div>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-phone"></i>
+                <div>
+                    <h3>Phone</h3>
+                    <p>+91 8104999122</p>
+                </div>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <div>
+                    <h3>Email</h3>
+                    <p>kulswaminigw@gmail.com</p>
+                </div>
+            </div>
+        </div>
+
+        <form id="contactForm">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" placeholder="Your Name" required />
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Your Email" required />
+            </div>
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" placeholder="Subject" required />
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit" class="btn">Send Message</button>
+            <div class="success-message" id="formSuccess">
+                Your message has been sent successfully. We'll get back to you soon!
+            </div>
+        </form>
+
+        <div class="contact-map">
+            <!-- Replace with actual Google Maps embed code -->
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d2222.393967880543!2d72.9541989600691!3d19.219242854539246!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2s!5e1!3m2!1sen!2sin!4v1744101873544!5m2!1sen!2sin"
+                width="100%" height="100%" style="border: 0" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-social">
+                <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p class="footer-text">
+                &copy; 2024 Kulswamini Grinding Works. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const contactForm = document.getElementById("contactForm");
+            const formSuccess = document.getElementById("formSuccess");
+
+            // Contact form submission
+            contactForm.addEventListener("submit", (e) => {
+                e.preventDefault();
+
+                // Show success message
+                formSuccess.style.display = "block";
+
+                // Reset form after 3 seconds
+                setTimeout(() => {
+                    contactForm.reset();
+                    formSuccess.style.display = "none";
+                }, 3000);
+            });
+
+            // Navbar scroll behavior
+            window.addEventListener("scroll", function () {
+                const header = document.querySelector(".header");
+                if (window.scrollY > 50) {
+                    header.classList.add("scrolled");
+                } else {
+                    header.classList.remove("scrolled");
+                }
+            });
+
+            // Mobile menu toggle
+            const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
+            const body = document.body;
+
+            mobileMenuBtn.addEventListener("click", function () {
+                body.classList.toggle("mobile-menu-open");
+            });
+        });
+        // Add this to your existing script (after the DOM content is loaded)
+        const animatedElements = document.querySelectorAll(
+            ".contact-info, #contactForm, .contact-map"
+        );
+        window.addEventListener("load", () => {
+            animatedElements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.classList.add("fade-in");
+                }, 200 * index);
+            });
+        });
+    </script>
+</body>
+
+</html>
