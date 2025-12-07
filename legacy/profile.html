@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | Kulswamini Grinding Works</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .profile-section {
+            padding: 80px 20px;
+            min-height: calc(100vh - 150px);
+            background-color: #f9f9f9;
+        }
+
+        .profile-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .profile-header h2 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .profile-header .user-role {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #e9ecef;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            margin-top: 10px;
+        }
+
+        .profile-header .admin-role {
+            background-color: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .profile-info {
+            margin-bottom: 30px;
+        }
+
+        .profile-info h3 {
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .info-group {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .info-label {
+            font-weight: 600;
+            width: 120px;
+            color: #555;
+        }
+
+        .info-value {
+            flex: 1;
+        }
+
+        .profile-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .action-btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .logout-btn:hover {
+            background-color: #bb2d3b;
+        }
+
+        .edit-btn {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .edit-btn:hover {
+            background-color: #d44534;
+        }
+
+        .admin-btn {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .admin-btn:hover {
+            background-color: #0b4a6e;
+        }
+
+        .not-logged-in {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .not-logged-in a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .not-logged-in a:hover {
+            background-color: #d44534;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo-container">
+                <img src="images/K.png" alt="Kulswamini Grinding Works Logo" class="logo-img">
+                <a href="FrontPage.html" class="logo">Kulswamini Grinding Works</a>
+            </div>
+            <nav class="nav-links">
+                <a href="FrontPage.html">Home</a>
+                <a href="products.html">Products</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="login.html">Login</a>
+            </nav>
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <section class="profile-section">
+        <div class="profile-container" id="profileContainer">
+            <!-- Content will be dynamically loaded -->
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-social">
+                <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p class="footer-text">&copy; 2024 Kulswamini Grinding Works. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const profileContainer = document.getElementById('profileContainer');
+            const { isLoggedIn, user } = checkLoginStatus();
+            
+            if (isLoggedIn && user) {
+                profileContainer.innerHTML = `
+                    <div class="profile-header">
+                        <h2>Welcome, ${user.name}</h2>
+                        <span class="user-role ${user.role === 'admin' ? 'admin-role' : ''}">
+                            ${user.role.charAt(0).toUpperCase() + user.role.slice(1)}
+                        </span>
+                    </div>
+                    <div class="profile-info">
+                        <h3>Account Information</h3>
+                        <div class="info-group">
+                            <div class="info-label">Name:</div>
+                            <div class="info-value">${user.name}</div>
+                        </div>
+                        <div class="info-group">
+                            <div class="info-label">Email:</div>
+                            <div class="info-value">${user.email}</div>
+                        </div>
+                        <div class="info-group">
+                            <div class="info-label">Role:</div>
+                            <div class="info-value">${user.role.charAt(0).toUpperCase() + user.role.slice(1)}</div>
+                        </div>
+                    </div>
+                    <div class="profile-actions">
+                        ${user.role === 'admin' ? '<a href="admin.html" class="action-btn admin-btn">Admin Panel</a>' : ''}
+                        <button class="action-btn logout-btn" onclick="handleLogout()">Logout</button>
+                    </div>
+                `;
+            } else {
+                profileContainer.innerHTML = `
+                    <div class="not-logged-in">
+                        <h2>You are not logged in</h2>
+                        <p>Please login to view your profile</p>
+                        <a href="login.html">Login</a>
+                    </div>
+                `;
+            }
+            
+            // Update navigation
+            updateNavigation();
+            
+            // Mobile menu functionality
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const body = document.body;
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                body.classList.toggle('mobile-menu-open');
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.nav-links') && !e.target.closest('.mobile-menu-btn')) {
+                    body.classList.remove('mobile-menu-open');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 
