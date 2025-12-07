@@ -1,0 +1,260 @@
+.admin-dashboard {
+    min-height: 100vh;
+    background: var(--bg-light);
+    padding-bottom: 4rem;
+}
+
+.admin-header {
+    background: var(--gradient-hero);
+    color: white;
+    padding: 2rem 0;
+    margin-bottom: 3rem;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.admin-header h1 {
+    color: white;
+    margin-bottom: 0.5rem;
+    font-size: 2.5rem;
+}
+
+.admin-header p {
+    color: white;
+    opacity: 0.9;
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.dashboard-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    border-bottom: 2px solid #e7e5e4;
+}
+
+.tab-btn {
+    padding: 1rem 2rem;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.tab-btn:hover {
+    color: var(--color-amber-deep);
+}
+
+.tab-btn.active {
+    color: var(--color-amber-deep);
+    border-bottom-color: var(--color-amber-deep);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.section-header h2 {
+    font-size: 2rem;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.table-container {
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    overflow-x: auto;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+}
+
+.admin-table th,
+.admin-table td {
+    padding: 1.25rem;
+    text-align: left;
+    border-bottom: 1px solid #e7e5e4;
+}
+
+.admin-table th {
+    background: var(--bg-warm);
+    font-weight: 600;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+}
+
+.admin-table tbody tr {
+    transition: background var(--transition-base);
+}
+
+.admin-table tbody tr:hover {
+    background: var(--bg-light);
+}
+
+.admin-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.category-badge {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    background: var(--gradient-button);
+    color: white;
+    border-radius: var(--radius-full);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.stock-good {
+    color: #059669;
+    font-weight: 600;
+}
+
+.stock-low {
+    color: #dc2626;
+    font-weight: 600;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    border-radius: var(--radius-full);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.status-pending {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.status-responded {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.status-closed {
+    background: #e7e5e4;
+    color: #57534e;
+}
+
+.action-btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all var(--transition-base);
+    margin-right: 0.5rem;
+}
+
+.edit-btn,
+.respond-btn {
+    background: var(--color-amber);
+    color: white;
+}
+
+.edit-btn:hover,
+.respond-btn:hover {
+    background: var(--color-amber-deep);
+    transform: translateY(-2px);
+}
+
+.delete-btn {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.delete-btn:hover {
+    background: #dc2626;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.close-btn {
+    background: #e7e5e4;
+    color: var(--text-secondary);
+}
+
+.close-btn:hover {
+    background: var(--color-steel);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.message-cell {
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.admin-table a {
+    color: var(--color-amber-deep);
+    text-decoration: none;
+    transition: color var(--transition-base);
+}
+
+.admin-table a:hover {
+    color: var(--color-amber);
+    text-decoration: underline;
+}
+
+@media (max-width: 992px) {
+    .header-content {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .section-header button {
+        width: 100%;
+    }
+
+    .dashboard-tabs {
+        flex-direction: column;
+    }
+
+    .tab-btn {
+        border-left: 3px solid transparent;
+        border-bottom: none;
+        text-align: left;
+    }
+
+    .tab-btn.active {
+        border-left-color: var(--color-amber-deep);
+        border-bottom-color: transparent;
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-header h1 {
+        font-size: 2rem;
+    }
+}
