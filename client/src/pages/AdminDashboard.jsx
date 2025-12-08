@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
+import BulkUpload from '../components/BulkUpload';
 import './AdminDashboard.css';
 
 const AdminDashboard = () => {
@@ -87,6 +88,12 @@ const AdminDashboard = () => {
                         Products ({products.length})
                     </button>
                     <button
+                        className={`tab-btn ${activeTab === 'bulk-upload' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('bulk-upload')}
+                    >
+                        📦 Bulk Upload
+                    </button>
+                    <button
                         className={`tab-btn ${activeTab === 'contacts' ? 'active' : ''}`}
                         onClick={() => setActiveTab('contacts')}
                     >
@@ -161,6 +168,12 @@ const AdminDashboard = () => {
                                         <code>cd server && node seed.js</code>
                                     </div>
                                 )}
+                            </div>
+                        )}
+
+                        {activeTab === 'bulk-upload' && (
+                            <div className="bulk-upload-section">
+                                <BulkUpload onUploadComplete={fetchProducts} />
                             </div>
                         )}
 

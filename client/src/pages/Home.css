@@ -3,9 +3,6 @@
 }
 
 .hero {
-    background: linear-gradient(135deg, #292524 0%, #44403c 50%, #57534e 100%);
-    background-size: cover;
-    background-position: center;
     min-height: 70vh;
     display: flex;
     align-items: center;
@@ -18,6 +15,19 @@
 .hero-content {
     max-width: 900px;
     padding: 2rem;
+    animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .hero h1 {
@@ -39,6 +49,25 @@
     gap: 1.5rem;
     justify-content: center;
     flex-wrap: wrap;
+}
+
+.hero-buttons .btn {
+    animation: fadeInUp 1s ease-out;
+    animation-fill-mode: both;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hero-buttons .btn:nth-child(1) {
+    animation-delay: 0.4s;
+}
+
+.hero-buttons .btn:nth-child(2) {
+    animation-delay: 0.6s;
+}
+
+.hero-buttons .btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .products-preview {
@@ -66,12 +95,39 @@
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);
     text-align: center;
-    transition: all var(--transition-base);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    opacity: 0;
+    animation: fadeInScale 0.6s ease-out forwards;
+}
+
+.category-card:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.category-card:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 .category-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-8px) rotate(-1deg);
     box-shadow: var(--shadow-hover);
+}
+
+.category-card:hover .category-icon {
+    transform: scale(1.2) rotate(10deg);
+    transition: transform 0.3s ease;
 }
 
 .category-icon {
@@ -129,12 +185,28 @@
     padding: 2rem;
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-sm);
-    transition: all var(--transition-base);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .stat-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-5px) scale(1.05);
     box-shadow: var(--shadow-md);
+}
+
+.stat-card:hover .stat-number {
+    animation: pulse 0.6s ease-in-out;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
 }
 
 .stat-number {

@@ -31,13 +31,14 @@
     border-radius: var(--radius-md);
     font-size: 1.05rem;
     border: 2px solid #e7e5e4;
-    transition: border-color var(--transition-base);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .search-input:focus {
     border-color: var(--color-amber);
     outline: none;
-    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+    box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.15);
+    transform: translateY(-1px);
 }
 
 .results-count {

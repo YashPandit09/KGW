@@ -32,9 +32,11 @@ const Shop = () => {
 
             // Handle both old and new API response formats
             if (data.products) {
+                // New format with pagination
                 setProducts(data.products);
                 setPagination(data.pagination);
-            } else {
+            } else if (Array.isArray(data)) {
+                // Old format - direct array
                 setProducts(data);
             }
         } catch (error) {

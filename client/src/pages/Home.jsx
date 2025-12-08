@@ -1,11 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import heroImage from '../images/grinding-hero.jpg.jpg';
 import './Home.css';
 
 const Home = () => {
+    const heroStyle = {
+        background: `linear-gradient(rgba(41, 37, 36, 0.75), rgba(68, 64, 60, 0.85)), url(${heroImage}) center/cover no-repeat`,
+        backgroundAttachment: 'fixed'
+    };
+
     return (
         <div className="home">
-            <section className="hero">
+            <section className="hero" style={heroStyle}>
                 <div className="hero-content">
                     <h1 className="fade-in">Welcome to<br />Kulswamini Grinding Works</h1>
                     <p className="fade-in">Your trusted partner in premium cutting tools and tooling solutions since 2001</p>

@@ -1,7 +1,13 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+const csv = require('csv-parser');
+const fs = require('fs');
 const Product = require('../models/Product');
 const { protect, authorize } = require('../middleware/auth');
+
+// Configure multer for CSV file upload
+const upload = multer({ dest: 'uploads/' });
 
 // Advanced filtering API for B2B customers
 // GET /api/products?category=Endmills&diameter=10&material=Carbide&coating=TiAlN
@@ -123,6 +129,119 @@ router.get('/filters', async (req, res) => {
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
+});
+
+// CSV Bulk Upload (Admin only)
+router.post('/bulk-upload', protect, authorize('admin'), upload.single('csvFile'), async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ message: 'No file uploaded' });
+        }
+
+        const products = [];
+        const errors = [];
+        let lineNumber = 0;
+
+        // Read and parse CSV file
+        fs.createReadStream(req.file.path)
+            .pipe(csv())
+            .on('data', (row) => {
+                lineNumber++;
+                try {
+                    // Validate required fields
+                    if (!row.name || !row.sku || !row.category || !row.price) {
+                        errors.push({
+                            line: lineNumber,
+                            message: 'Missing required fields (name, sku, category, price)',
+                            data: row
+                        });
+                        return;
+                    }
+
+                    // Parse product data
+                    const product = {
+                        name: row.name.trim(),
+                        sku: row.sku.trim(),
+                        category: row.category.trim(),
+                        price: parseFloat(row.price),
+                        stock: parseInt(row.stock) || 0,
+                        specs: {
+                            material: row.material || '',
+                            coating: row.coating || 'Uncoated',
+                            diameter: parseFloat(row.diameter) || 0,
+                            flutes: parseInt(row.flutes) || 0,
+                            shankDiameter: parseFloat(row.shankDiameter) || 0,
+                            overallLength: parseFloat(row.overallLength) || 0
+                        },
+                        description: row.description || '',
+                        images: row.images ? row.images.split('|').map(img => img.trim()) : [],
+                        isFeatured: row.isFeatured === 'true' || row.isFeatured === '1'
+                    };
+
+                    products.push(product);
+                } catch (err) {
+                    errors.push({
+                        line: lineNumber,
+                        message: err.message,
+                        data: row
+                    });
+                }
+            })
+            .on('end', async () => {
+                // Delete uploaded file
+                fs.unlinkSync(req.file.path);
+
+                if (products.length === 0) {
+                    return res.status(400).json({
+                        message: 'No valid products found in CSV',
+                        errors
+                    });
+                }
+
+                try {
+                    // Insert products in bulk
+                    const result = await Product.insertMany(products, { ordered: false });
+
+                    res.json({
+                        message: `Successfully uploaded ${result.length} products`,
+                        uploaded: result.length,
+                        errors: errors.length > 0 ? errors : undefined,
+                        failed: errors.length
+                    });
+                } catch (err) {
+                    // Handle duplicate SKU errors
+                    const duplicates = err.writeErrors?.map(e => ({
+                        sku: products[e.index]?.sku,
+                        message: 'Duplicate SKU'
+                    })) || [];
+
+                    res.json({
+                        message: `Uploaded ${products.length - duplicates.length} products`,
+                        uploaded: products.length - duplicates.length,
+                        errors: [...errors, ...duplicates],
+                        failed: errors.length + duplicates.length
+                    });
+                }
+            })
+            .on('error', (err) => {
+                fs.unlinkSync(req.file.path);
+                res.status(500).json({ message: 'Error parsing CSV: ' + err.message });
+            });
+    } catch (error) {
+        console.error('Bulk upload error:', error);
+        res.status(500).json({ message: 'Server error during upload' });
+    }
+});
+
+// Download CSV template
+router.get('/csv-template', protect, authorize('admin'), (req, res) => {
+    const template = `name,sku,category,material,coating,diameter,flutes,shankDiameter,overallLength,price,stock,description,images,isFeatured
+Solid Carbide End Mill,KGW-EM-001,Endmills,Carbide,TiAlN,10,4,10,75,1250,25,High-performance solid carbide end mill,/images/endmill.jpg,true
+HSS Twist Drill,KGW-DR-001,Drills,High-Speed Steel,TiN,8,2,8,100,450,50,Professional quality HSS drill,,false`;
+
+    res.setHeader('Content-Type', 'text/csv');
+    res.setHeader('Content-Disposition', 'attachment; filename=product-template.csv');
+    res.send(template);
 });
 
 // Get single product by ID (public)

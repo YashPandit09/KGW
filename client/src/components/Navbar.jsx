@@ -1,59 +1,69 @@
-import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { CartContext } from '../context/CartContext';
 import './Navbar.css';
 
 const Navbar = () => {
-    const { user, logout, isAuthenticated, isAdmin } = useContext(AuthContext);
+    const { logout, isAuthenticated, isAdmin } = useContext(AuthContext);
     const { count } = useContext(CartContext);
     const [menuOpen, setMenuOpen] = useState(false);
+    const navigate = useNavigate();
 
     const handleLogout = () => {
         logout();
-        setMenuOpen(false);
+        navigate('/');
     };
 
     return (
-        <header className="navbar">
-            <div className="nav-container">
-                <div className="logo-container">
-                    <img src="/images/K.png" alt="Kulswamini Logo" className="logo-img" />
-                    <Link to="/" className="logo">Kulswamini Grinding Works</Link>
-                </div>
+        <nav className="navbar">
+            <div className="container nav-container">
+                <Link to="/" className="logo">
+                    <img src="/images/K.png" alt="KGW Logo" className="logo-image" />
+                    <span className="logo-text">KGW</span>
+                </Link>
 
-                <nav className={`nav-links ${menuOpen ? 'open' : ''}`}>
+                <div className={`nav-links ${menuOpen ? 'active' : ''}`}>
                     <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
                     <Link to="/shop" onClick={() => setMenuOpen(false)}>Shop</Link>
                     <Link to="/about" onClick={() => setMenuOpen(false)}>About</Link>
                     <Link to="/contact" onClick={() => setMenuOpen(false)}>Contact</Link>
 
-                    <Link to="/cart" className="cart-link" onClick={() => setMenuOpen(false)}>
+                    {isAuthenticated && isAdmin && (
+                        <Link to="/admin" onClick={() => setMenuOpen(false)}>Admin</Link>
+                    )}
+                </div>
+
+                <div className="nav-actions">
+                    {/* Cart */}
+                    <Link to="/cart" className="cart-link">
                         <span className="cart-icon">🛒</span>
-                        Cart ({count})
+                        {count > 0 && <span className="cart-count">{count}</span>}
                     </Link>
 
+                    {/* Auth */}
                     {isAuthenticated ? (
-                        <>
-                            {isAdmin && <Link to="/admin" onClick={() => setMenuOpen(false)}>Admin</Link>}
-                            <button onClick={handleLogout} className="btn-logout">Logout</button>
-                        </>
+                        <button onClick={handleLogout} className="btn-nav">
+                            Logout
+                        </button>
                     ) : (
-                        <Link to="/login" className="btn-login" onClick={() => setMenuOpen(false)}>Login</Link>
+                        <Link to="/login" className="btn-nav">
+                            Login
+                        </Link>
                     )}
-                </nav>
 
-                <button
-                    className={`mobile-menu-btn ${menuOpen ? 'open' : ''}`}
-                    onClick={() => setMenuOpen(!menuOpen)}
-                    aria-label="Toggle menu"
-                >
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
+                    {/* Mobile Menu Toggle */}
+                    <button
+                        className="menu-toggle"
+                        onClick={() => setMenuOpen(!menuOpen)}
+                    >
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
             </div>
-        </header>
+        </nav>
     );
 };
 
