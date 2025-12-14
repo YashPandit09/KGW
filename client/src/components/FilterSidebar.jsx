@@ -50,7 +50,7 @@ const FilterSidebar = ({ filters, onFilterChange, onClearFilters }) => {
                     className="filter-select"
                 >
                     <option value="">All Categories</option>
-                    {availableFilters.categories.map(cat => (
+                    {availableFilters.categories?.map(cat => (
                         <option key={cat} value={cat}>{cat}</option>
                     ))}
                 </select>
@@ -64,7 +64,7 @@ const FilterSidebar = ({ filters, onFilterChange, onClearFilters }) => {
                     className="filter-select"
                 >
                     <option value="">All Materials</option>
-                    {availableFilters.materials.map(mat => (
+                    {availableFilters.materials?.map(mat => (
                         <option key={mat} value={mat}>{mat}</option>
                     ))}
                 </select>
@@ -78,7 +78,7 @@ const FilterSidebar = ({ filters, onFilterChange, onClearFilters }) => {
                     className="filter-select"
                 >
                     <option value="">All Coatings</option>
-                    {availableFilters.coatings.map(coat => (
+                    {availableFilters.coatings?.map(coat => (
                         <option key={coat} value={coat}>{coat}</option>
                     ))}
                 </select>
@@ -92,7 +92,7 @@ const FilterSidebar = ({ filters, onFilterChange, onClearFilters }) => {
                     className="filter-select"
                 >
                     <option value="">All Diameters</option>
-                    {availableFilters.diameters.map(dia => (
+                    {availableFilters.diameters?.map(dia => (
                         <option key={dia} value={dia}>Ø{dia} mm</option>
                     ))}
                 </select>
@@ -106,7 +106,7 @@ const FilterSidebar = ({ filters, onFilterChange, onClearFilters }) => {
                     className="filter-select"
                 >
                     <option value="">All</option>
-                    {availableFilters.flutes.map(fl => (
+                    {availableFilters.flutes?.map(fl => (
                         <option key={fl} value={fl}>{fl} Flute{fl > 1 ? 's' : ''}</option>
                     ))}
                 </select>
