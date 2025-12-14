@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import BulkUpload from '../components/BulkUpload';
+import { API_BASE_URL } from '../config';
 import './AdminDashboard.css';
 
 const AdminDashboard = () => {
@@ -24,7 +25,7 @@ const AdminDashboard = () => {
     const fetchProducts = async () => {
         setLoading(true);
         try {
-            const { data } = await axios.get('/api/products');
+            const { data } = await axios.get(`${API_BASE_URL}/api/products`);
             setProducts(data);
         } catch (error) {
             console.error('Failed to fetch products:', error);
@@ -36,7 +37,7 @@ const AdminDashboard = () => {
     const fetchContacts = async () => {
         setLoading(true);
         try {
-            const { data } = await axios.get('/api/contact');
+            const { data } = await axios.get(`${API_BASE_URL}/api/contact`);
             setContacts(data);
         } catch (error) {
             console.error('Failed to fetch contacts:', error);
@@ -49,7 +50,7 @@ const AdminDashboard = () => {
         if (!window.confirm('Are you sure you want to delete this product?')) return;
 
         try {
-            await axios.delete(`/api/products/${id}`);
+            await axios.delete(`${API_BASE_URL}/api/products/${id}`);
             fetchProducts();
         } catch (error) {
             alert('Failed to delete product');
@@ -58,7 +59,7 @@ const AdminDashboard = () => {
 
     const handleContactStatusUpdate = async (id, newStatus) => {
         try {
-            await axios.put(`/api/contact/${id}`, { status: newStatus });
+            await axios.put(`${API_BASE_URL}/api/contact/${id}`, { status: newStatus });
             fetchContacts();
         } catch (error) {
             alert('Failed to update status');

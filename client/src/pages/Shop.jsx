@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import ProductCard from '../components/ProductCard';
 import FilterSidebar from '../components/FilterSidebar';
+import { API_BASE_URL } from '../config';
 import './Shop.css';
 
 const Shop = () => {
@@ -28,7 +29,7 @@ const Shop = () => {
                 if (value) params.append(key, value);
             });
 
-            const { data } = await axios.get(`/api/products?${params.toString()}`);
+            const { data } = await axios.get(`${API_BASE_URL}/api/products?${params.toString()}`);
 
             // Handle both old and new API response formats
             if (data.products) {

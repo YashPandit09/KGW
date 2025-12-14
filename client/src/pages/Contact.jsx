@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 import './Contact.css';
 
 const Contact = () => {
@@ -18,7 +19,7 @@ const Contact = () => {
         setStatus({ type: '', message: '' });
 
         try {
-            await axios.post('/api/contact', formData);
+            await axios.post(`${API_BASE_URL}/api/contact`, formData);
             setStatus({
                 type: 'success',
                 message: 'Thank you! We\'ll get back to you soon.'

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 import './BulkUpload.css';
 
 const BulkUpload = ({ onUploadComplete }) => {
@@ -54,7 +55,7 @@ const BulkUpload = ({ onUploadComplete }) => {
         formData.append('csvFile', file);
 
         try {
-            const { data } = await axios.post('/api/products/bulk-upload', formData, {
+            const { data } = await axios.post(`${API_BASE_URL}/api/products/bulk-upload`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -78,7 +79,7 @@ const BulkUpload = ({ onUploadComplete }) => {
 
     const downloadTemplate = async () => {
         try {
-            const response = await axios.get('/api/products/csv-template', {
+            const response = await axios.get(`${API_BASE_URL}/api/products/csv-template`, {
                 responseType: 'blob'
             });
 

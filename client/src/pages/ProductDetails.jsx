@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import axios from 'axios';
 import { CartContext } from '../context/CartContext';
+import { API_BASE_URL } from '../config';
 import './ProductDetails.css';
 
 const ProductDetails = () => {
@@ -15,7 +16,7 @@ const ProductDetails = () => {
 
     const fetchProduct = useCallback(async () => {
         try {
-            const { data } = await axios.get(`/api/products/${id}`);
+            const { data } = await axios.get(`${API_BASE_URL}/api/products/${id}`);
             setProduct(data);
         } catch (error) {
             console.error('Failed to fetch product:', error);

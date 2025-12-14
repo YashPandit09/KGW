@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 import './FilterSidebar.css';
 
 const FilterSidebar = ({ filters, onFilterChange, onClearFilters }) => {
@@ -17,7 +18,7 @@ const FilterSidebar = ({ filters, onFilterChange, onClearFilters }) => {
 
     const fetchFilterOptions = async () => {
         try {
-            const { data } = await axios.get('/api/products/filters');
+            const { data } = await axios.get(`${API_BASE_URL}/api/products/filters`);
             setAvailableFilters(data);
         } catch (error) {
             console.error('Failed to fetch filter options:', error);
