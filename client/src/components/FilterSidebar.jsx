@@ -29,7 +29,8 @@ const FilterSidebar = ({ filters, onFilterChange, onClearFilters }) => {
         onFilterChange({ ...filters, [filterName]: value });
     };
 
-    const activeFilterCount = Object.values(filters).filter(v => v && v !== '').length;
+    const FILTER_KEYS = ['category', 'material', 'coating', 'diameter', 'flutes', 'search'];
+    const activeFilterCount = FILTER_KEYS.filter(k => filters[k] && filters[k] !== '').length;
 
     return (
         <div className="filter-sidebar">

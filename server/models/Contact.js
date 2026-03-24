@@ -27,6 +27,27 @@ const contactSchema = new mongoose.Schema({
         enum: ['pending', 'responded', 'closed'],
         default: 'pending'
     },
+    // AI-enriched fields (populated by chatbot, empty for static form)
+    mood: {
+        type: String,
+        enum: ['neutral', 'curious', 'frustrated', 'urgent'],
+        default: 'neutral'
+    },
+    urgency: {
+        type: Number,
+        min: 1,
+        max: 10,
+        default: 1
+    },
+    summary: {
+        type: String,
+        default: ''
+    },
+    source: {
+        type: String,
+        enum: ['form', 'chat'],
+        default: 'form'
+    },
     createdAt: {
         type: Date,
         default: Date.now

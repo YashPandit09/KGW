@@ -9,6 +9,9 @@ node_modules/
 .env.production
 /server/.env
 
+# GCP Service Account credentials — NEVER commit this
+/server/gcp-credentials.json
+
 # Build outputs
 /client/build/
 /client/dist/

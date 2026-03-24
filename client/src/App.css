@@ -20,8 +20,12 @@
 .page-hero {
   background: var(--gradient-hero);
   color: white;
-  padding: 4rem 2rem;
+  padding: 1.5rem 2rem;
+  padding-top: calc(1.5rem + 90px);
+  /* compensate for negative pull-up */
   text-align: center;
+  margin-top: -90px;
+  /* pull flush against fixed navbar */
   margin-bottom: 3rem;
   border-radius: 0 0 var(--radius-xl) var(--radius-xl);
   box-shadow: var(--shadow-lg);
@@ -80,6 +84,11 @@
 @media (max-width: 768px) {
   .main-content {
     margin-top: 70px;
+  }
+
+  .page-hero {
+    margin-top: -70px;
+    padding-top: calc(1.5rem + 70px);
   }
 
   .page-hero h1 {
